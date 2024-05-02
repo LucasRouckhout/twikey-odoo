@@ -22,7 +22,9 @@ def get_twikey_customer(partner):
         "country": partner.country_id.code if partner.country_id else "",
     }
     # if owner is company treat is as such
-    if owner.company_type == "company" and owner.name:
+    # in Twikey any entity with a VAT & company name
+    # is considered a company
+    if owner.vat and owner.name:
         customer["companyName"] = owner.name
         if owner.vat:
             customer["coc"] = owner.vat
